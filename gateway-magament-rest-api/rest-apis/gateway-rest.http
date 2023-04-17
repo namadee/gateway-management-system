@@ -1,0 +1,57 @@
+###
+# Retrieve all gateways
+GET http://localhost:4000/gateway
+
+###
+# Retrieve a single gateway by _id. Replace ':gatewayId'  or '63f64ed0c0dd426ff351bf6d' with a valid gateway _id
+# In order to obtain :gatewayId first need to create a gateway and get the _id from response or GET All gateways API
+# GET http://localhost:4000/gateway/:gatewayId
+GET http://localhost:4000/gateway/642c07a6475bde3a8142ee71
+
+###
+# Create a new gateway
+POST http://localhost:4000/gateway
+content-type: application/json
+
+{
+    "serialNumber": "MKJNAM678235",
+    "name": "Gateway 2",
+    "ipv4Address": "123.255.255.255"
+}
+
+###
+# Update a gateway by _id. Replace ':gatewayId'  or '63f64ed0c0dd426ff351bf6d' with a valid gateway _id
+# In order to obtain :gatewayId first need to create a gateway and get the _id from response or GET All gateways API
+# PUT http://localhost:4000/gateway/:gatewayId
+PUT http://localhost:4000/gateway/6439d20602b2a6a6fb6c07bb
+content-type: application/json
+
+{
+    "name": "Gateway 3"
+}
+
+###
+# Attach device/devices to a gateway by providing one or list of already created devices _id
+PATCH  http://localhost:4000/gateway/642c07a6475bde3a8142ee71
+content-type: application/json
+
+{
+    "type": "add",
+    "devices": ["642c082a475bde3a8142ee7f"]
+}
+
+###
+# Remove device/devices to a gateway by providing one or list of already attached devices _id/s
+PATCH  http://localhost:4000/gateway/63f64ed0c0dd426ff351bf6d
+content-type: application/json
+
+{
+    "type": "remove",
+    "devices": ["63f6508a18665fc36aed0928"]
+}
+
+###
+# Delete a gateway by _id. Replace ':gatewayId'  or '63f64d44c0dd426ff351bf60' with a valid gateway _id
+# In order to obtain :gatewayId first need to create a gateway and get the _id from response or GET All gateway API
+# DELETE http://localhost:4000/gateway/:gatewayId
+DELETE http://localhost:4000/gateway/6439d1bd02b2a6a6fb6c07b5
