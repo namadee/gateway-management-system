@@ -1,0 +1,100 @@
+/* GatewayList.css */
+.gateway-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .gateway-list-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .gateway-list-table th {
+    font-weight: bold;
+    text-align: left;
+    padding: 12px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+  }
+  
+  .gateway-list-table td {
+    padding: 12px;
+    border: 1px solid #ccc;
+  }
+  
+  .gateway-list-table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+
+.inputfield{
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.popup-content{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.gateway-form{
+  position: absolute;
+  width: 15rem;
+  border-radius: 0.2rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  top: 5rem;
+  left: 33%;
+
+  }
+
+.add-btn{
+  padding: 0.3rem;
+    width: 5rem;
+    margin-left: 2rem;
+}
+.close-btn{
+  padding: 0.3rem;
+  width: 5rem;
+  position: absolute;
+  top: 24.8rem;
+  left: 26rem;
+}
+
+.top-content{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 70%;
+    width: 100%;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.text-btn{
+ border: none;
+    /* background: #B31F33; */
+    background: #B31F33;
+    
+    color: white;
+    border-radius: 0.2rem;
+}
+.add-gateway-btn{
+  padding: 0.5rem;
+  background: linear-gradient(90deg, rgba(31,77,105,1) 15%, rgba(178,31,50,1) 100%);
+}
+
+.view-btn{
+  padding: 0.5rem;
+  
+}
+
+.logo{
+  width: 3rem;
+}
+
+  
