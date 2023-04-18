@@ -38,6 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const DeviceList = () => {
   const [devices, setDevices] = useState([]);
   const [popupForm, setPopupForm] = useState(false);
+  const [editDeviceData, setEditDeviceData] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -52,10 +53,40 @@ const DeviceList = () => {
     }
   };
 
+  const handleDelete = async (deviceId) => {
+    try {
+      await axios.delete(`http://localhost:4000/device/${deviceId}`);
+      setDevices(devices.filter((device) => device._id !== deviceId));
+    } catch (error) {
+      console.error("Failed to delete gateway:", error);
+    }
+  };
+
   const handleDeviceAdd = (newDevice) => {
     setDevices([...devices, newDevice]);
-    setPopupForm({ trigger: true, device: null });
   };
+
+  //edit device function
+  const editDevice = async (deviceId, updatedDevice) => {
+
+    const updatedDevices = devices.map(device => {
+      if (device._id === deviceId) {
+        return updatedDevice;
+      }
+      return device;
+    });
+    setDevices(updatedDevices);
+    setPopupForm(false);
+    setEditDeviceData(null);
+    console.log('Device updated successfully:', deviceId, updatedDevice);
+   
+  };
+
+    //Handle edit button
+    const handleEditButtonClick = (device) => {
+      setEditDeviceData(device);
+      setPopupForm(true);
+    };
 
   return (
     <div className="gateway-list-container">
@@ -67,43 +98,38 @@ const DeviceList = () => {
         <Popup trigger={popupForm} setTrigger={setPopupForm}>
             <AddDeviceForm
             handleDeviceAdd={handleDeviceAdd}
-           
+            handleDeviceEdit = {editDevice}
+            deviceData = {editDeviceData}
             />
         </Popup>
       )}
      
       <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{ minWidth: 700}} aria-label="customized table">
         <TableHead>
           <TableRow sx={{backgroundColor: '#1f4d69'}}>
-            <StyledTableCell align="center">ID</StyledTableCell>
             <StyledTableCell align="center">vendor</StyledTableCell>
             <StyledTableCell align="center">Status</StyledTableCell>
             <StyledTableCell align="center">Created Date</StyledTableCell>
             <StyledTableCell align="center">Edit</StyledTableCell> 
             <StyledTableCell align="center">Delete</StyledTableCell> 
-            <StyledTableCell align="center"></StyledTableCell> 
+            
           </TableRow>
         </TableHead>
         <TableBody>
         {devices.map((device) => (
             <StyledTableRow key={device._id}>
               
-              <StyledTableCell align="center">{device.uuid}</StyledTableCell>
               <StyledTableCell align="center">{device.vendor}</StyledTableCell>
               <StyledTableCell align="ceter">{device.status}</StyledTableCell>
               <StyledTableCell align="center">{device.createdDate}</StyledTableCell>
               <StyledTableCell align="center">
-                <EditIcon/>
+                <EditIcon onClick = {() => handleEditButtonClick(device)} />
               </StyledTableCell>
               <StyledTableCell align="center">
-                <DeleteOutlineIcon />
+                <DeleteOutlineIcon onClick={() => handleDelete(device._id)} />
               </StyledTableCell>
-              <StyledTableCell>
-                
-             
-              {/* <a href="" className="view-btn text-btn">View Devices</a> */}
-              </StyledTableCell>
+              
             </StyledTableRow>
           ))}
          
